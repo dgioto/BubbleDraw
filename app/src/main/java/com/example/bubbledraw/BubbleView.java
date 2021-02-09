@@ -5,14 +5,15 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.os.Handler;
 
 import java.util.ArrayList;
 import java.util.Random;
-
-public class BubbleView extends ImageView implements View.OnTouchListener {
+//ПОЧЕМУ ImageView ПЕРЕПИСАЛСЯ В ТАКОЙ ВИД??????
+public class BubbleView extends androidx.appcompat.widget.AppCompatImageView implements View.OnTouchListener {
 
     private Random rand = new Random();
     private ArrayList<Bubble> bubbleList;
@@ -24,6 +25,16 @@ public class BubbleView extends ImageView implements View.OnTouchListener {
     public BubbleView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
         bubbleList = new ArrayList<Bubble>();
+    }
+
+    protected void onDraw(Canvas canvas){
+        for (Bubble b : bubbleList) b.draw(canvas);
+    }
+
+    //ЧТО ЭТО ЗА МЕТОД????
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        return false;
     }
 
     private class Bubble{
