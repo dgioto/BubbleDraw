@@ -12,6 +12,7 @@ import android.os.Handler;
 
 import java.util.ArrayList;
 import java.util.Random;
+
 //ПОЧЕМУ ImageView ПЕРЕПИСАЛСЯ В ТАКОЙ ВИД??????
 public class BubbleView extends androidx.appcompat.widget.AppCompatImageView implements View.OnTouchListener {
 
@@ -25,10 +26,21 @@ public class BubbleView extends androidx.appcompat.widget.AppCompatImageView imp
     public BubbleView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
         bubbleList = new ArrayList<Bubble>();
+        testBubbles();
     }
 
     protected void onDraw(Canvas canvas){
         for (Bubble b : bubbleList) b.draw(canvas);
+    }
+
+    public void testBubbles(){
+        for (int n = 0; n < 100; n++){
+            int x = rand.nextInt(600);
+            int y = rand.nextInt(600);
+            int s = rand.nextInt(size) + size;
+            bubbleList.add(new Bubble(x, y, s));
+        }
+        invalidate();
     }
 
     //ЧТО ЭТО ЗА МЕТОД????
