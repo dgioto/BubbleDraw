@@ -13,7 +13,6 @@ import android.os.Handler;
 import java.util.ArrayList;
 import java.util.Random;
 
-//ПОЧЕМУ ImageView ПЕРЕПИСАЛСЯ В ТАКОЙ ВИД??????
 public class BubbleView extends androidx.appcompat.widget.AppCompatImageView implements View.OnTouchListener {
 
     private Random rand = new Random();
@@ -29,8 +28,18 @@ public class BubbleView extends androidx.appcompat.widget.AppCompatImageView imp
         testBubbles();
     }
 
+    //создаем многопоточность
+    private Runnable r = new Runnable() {
+        @Override
+        public void run() {
+            for (Bubble b : bubbleList) b.update();
+            invalidate();
+        }
+    };
+
     protected void onDraw(Canvas canvas){
         for (Bubble b : bubbleList) b.draw(canvas);
+        h.postDelayed(r, delay);
     }
 
     public void testBubbles(){
@@ -40,10 +49,10 @@ public class BubbleView extends androidx.appcompat.widget.AppCompatImageView imp
             int s = rand.nextInt(size) + size;
             bubbleList.add(new Bubble(x, y, s));
         }
+        //очистка экрана
         invalidate();
     }
 
-    //ЧТО ЭТО ЗА МЕТОД????
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         return false;
@@ -55,7 +64,7 @@ public class BubbleView extends androidx.appcompat.widget.AppCompatImageView imp
         private int size;
         private int color;
         private int xspeed, yspeed;
-        private final int MAX_SPEED = 5;
+        private final int MAX_SPEED = 15;
 
         public  Bubble(int newX, int newY, int newSize){
             x = newX;
