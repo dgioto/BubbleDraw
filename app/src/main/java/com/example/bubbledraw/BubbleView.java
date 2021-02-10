@@ -13,18 +13,25 @@ import android.os.Handler;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class BubbleView extends androidx.appcompat.widget.AppCompatImageView implements View.OnTouchListener {
-
+public class BubbleView extends androidx.appcompat.widget.AppCompatImageView
+        implements View.OnTouchListener {
+    //генератор случайных чисел
     private Random rand = new Random();
+    //объявляем динамический масив
     private ArrayList<Bubble> bubbleList;
+    //размер пузырька
     private int size = 50;
+    //скорость кадрав в секунду
     private  int delay = 33;
+    //кисть для рисования пузырьков
     private Paint myPaint = new Paint();
+    //объект для работы с многопоточностью для выполнения анимации
     private Handler h = new Handler();
 
     public BubbleView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
         bubbleList = new ArrayList<Bubble>();
+        //тестируем приложение
         //testBubbles();
         setOnTouchListener(this);
     }
@@ -33,16 +40,22 @@ public class BubbleView extends androidx.appcompat.widget.AppCompatImageView imp
     private Runnable r = new Runnable() {
         @Override
         public void run() {
+            //обходим динамический массив для обновления координат конкретного пузырька
+            // для следующего кадра анимации
             for (Bubble b : bubbleList) b.update();
             invalidate();
         }
     };
-
+    //вызывавается каждый раз, когда экран BubbleView нуждается в обновлении
     protected void onDraw(Canvas canvas){
+        //для каждого объекта b класса Bubble в динамическом массиве bubbleList нарисуйте b на
+        // объекте Canvas устройства Android
         for (Bubble b : bubbleList) b.draw(canvas);
+        //отправляет сообщение от обработчика в наш поток r, указывая ему снова запуститься
+        //в 33 миллисекунды
         h.postDelayed(r, delay);
     }
-
+    //тестирование 100 пузырьками
     public void testBubbles(){
         for (int n = 0; n < 100; n++){
             int x = rand.nextInt(600);
@@ -53,16 +66,19 @@ public class BubbleView extends androidx.appcompat.widget.AppCompatImageView imp
         //очистка экрана
         invalidate();
     }
-
+    //рисование касанием
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         //обработка множественных касаний
         for (int n = 0; n < motionEvent.getPointerCount(); n++) {
+            //получаем координаты касания x, y
             int x = (int) motionEvent.getX(n);
             int y = (int) motionEvent.getY(n);
+            //генерируем случайный размер
             int s = rand.nextInt(size) + size;
             bubbleList.add(new Bubble(x, y, s));
         }
+        //true при полной обработке события касания, false  при прокрутке или маштабировании
         return true;
     }
 
@@ -78,7 +94,9 @@ public class BubbleView extends androidx.appcompat.widget.AppCompatImageView imp
             x = newX;
             y = newY;
             size = newSize;
-            color = Color.argb(rand.nextInt(256),
+            //устанавливаем случайный цвет
+            color = Color.argb(
+                    rand.nextInt(256),
                     rand.nextInt(256),
                     rand.nextInt(256),
                     rand.nextInt(256));
@@ -87,7 +105,9 @@ public class BubbleView extends androidx.appcompat.widget.AppCompatImageView imp
         }
 
         public void draw(Canvas canvas){
+            //устанавливаем цвет кисти случайным способом
             myPaint.setColor(color);
+            //рисуем овал, указываем ограничесвающий прямоугольник
             canvas.drawOval(x - size/2, y - size/2,
                     x + size/2, y + size/2, myPaint);
         }
