@@ -56,10 +56,13 @@ public class BubbleView extends androidx.appcompat.widget.AppCompatImageView imp
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        int x = (int) motionEvent.getX();
-        int y = (int) motionEvent.getY();
-        int s = rand.nextInt(size) + size;
-        bubbleList.add(new Bubble(x, y, s));
+        //обработка множественных касаний
+        for (int n = 0; n < motionEvent.getPointerCount(); n++) {
+            int x = (int) motionEvent.getX(n);
+            int y = (int) motionEvent.getY(n);
+            int s = rand.nextInt(size) + size;
+            bubbleList.add(new Bubble(x, y, s));
+        }
         return true;
     }
 
