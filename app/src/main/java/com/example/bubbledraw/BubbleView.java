@@ -25,7 +25,8 @@ public class BubbleView extends androidx.appcompat.widget.AppCompatImageView imp
     public BubbleView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
         bubbleList = new ArrayList<Bubble>();
-        testBubbles();
+        //testBubbles();
+        setOnTouchListener(this);
     }
 
     //создаем многопоточность
@@ -55,7 +56,11 @@ public class BubbleView extends androidx.appcompat.widget.AppCompatImageView imp
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        return false;
+        int x = (int) motionEvent.getX();
+        int y = (int) motionEvent.getY();
+        int s = rand.nextInt(size) + size;
+        bubbleList.add(new Bubble(x, y, s));
+        return true;
     }
 
     private class Bubble{
