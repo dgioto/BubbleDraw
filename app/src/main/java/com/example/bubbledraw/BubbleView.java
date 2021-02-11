@@ -100,8 +100,9 @@ public class BubbleView extends androidx.appcompat.widget.AppCompatImageView
                     rand.nextInt(256),
                     rand.nextInt(256),
                     rand.nextInt(256));
-            xspeed = rand.nextInt(MAX_SPEED * 2 + 1) - MAX_SPEED;
-            yspeed = rand.nextInt(MAX_SPEED * 2 + 1) - MAX_SPEED;
+            //включает движение шарикав в произвольном направлении
+            //xspeed = rand.nextInt(MAX_SPEED * 2 + 1) - MAX_SPEED;
+            //yspeed = rand.nextInt(MAX_SPEED * 2 + 1) - MAX_SPEED;
         }
 
         public void draw(Canvas canvas){
