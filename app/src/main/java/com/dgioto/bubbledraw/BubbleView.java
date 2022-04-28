@@ -19,7 +19,7 @@ public class BubbleView extends androidx.appcompat.widget.AppCompatImageView
     //объявляем динамический масив
     private final ArrayList<Bubble> bubbleList;
     //размер пузырька
-    private final int size = 50;
+    private final int size = 35;
     //скорость кадрав в секунду
     private final int delay = 33;
     //кисть для рисования пузырьков
@@ -29,9 +29,8 @@ public class BubbleView extends androidx.appcompat.widget.AppCompatImageView
 
     public BubbleView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
+
         bubbleList = new ArrayList<Bubble>();
-        //тестируем приложение
-        //testBubbles();
         setOnTouchListener(this);
     }
 
@@ -63,9 +62,7 @@ public class BubbleView extends androidx.appcompat.widget.AppCompatImageView
             //получаем координаты касания x, y
             int x = (int) motionEvent.getX(n);
             int y = (int) motionEvent.getY(n);
-            //генерируем случайный размер
-            int s = rand.nextInt(size) + size;
-            bubbleList.add(new Bubble(x, y, s));
+            bubbleList.add(new Bubble(x, y, size));
         }
         //true при полной обработке события касания, false  при прокрутке или маштабировании
         return true;
@@ -94,8 +91,8 @@ public class BubbleView extends androidx.appcompat.widget.AppCompatImageView
             //устанавливаем цвет кисти случайным способом
             myPaint.setColor(color);
             //рисуем овал, указываем ограничесвающий прямоугольник
-            canvas.drawOval(x - size/2, y - size/2,
-                    x + size/2, y + size/2, myPaint);
+            canvas.drawOval(x - size, y - size,
+                    x + size, y + size, myPaint);
         }
 
         public void update(){
