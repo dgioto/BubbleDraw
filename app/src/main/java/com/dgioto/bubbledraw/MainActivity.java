@@ -1,4 +1,4 @@
-package com.example.bubbledraw;
+package com.dgioto.bubbledraw;
 
 import androidx.appcompat.app.AppCompatActivity;
 
