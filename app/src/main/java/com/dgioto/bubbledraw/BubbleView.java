@@ -21,7 +21,7 @@ public class BubbleView extends androidx.appcompat.widget.AppCompatImageView
     //размер пузырька
     private final int size = 35;
     //скорость кадрав в секунду
-    private final int delay = 33;
+    private final int delay = 100;
     //кисть для рисования пузырьков
     private final Paint myPaint = new Paint();
     //объект для работы с многопоточностью для выполнения анимации
@@ -79,12 +79,8 @@ public class BubbleView extends androidx.appcompat.widget.AppCompatImageView
             x = newX;
             y = newY;
             size = newSize;
-            //устанавливаем случайный цвет
-            color = Color.argb(
-                    rand.nextInt(256),
-                    rand.nextInt(256),
-                    rand.nextInt(256),
-                    rand.nextInt(256));
+            //устанавливаем цвет
+            color = Color.GREEN;
         }
 
         public void draw(Canvas canvas){
