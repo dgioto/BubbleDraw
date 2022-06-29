@@ -19,7 +19,7 @@ public class BubbleView extends androidx.appcompat.widget.AppCompatImageView
     //объявляем динамический масив
     private final ArrayList<Bubble> bubbleList;
     //размер пузырька
-    private final int size = 35;
+    private final int size = 20;
     //скорость кадрав в секунду
     private final int delay = 100;
     //кисть для рисования пузырьков
